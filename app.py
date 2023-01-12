@@ -37,16 +37,17 @@ def get_exam_status():
 
 
 if __name__ == "__main__":
+    send_to_telegram("Bot started")
+    original_exams_arr = get_exam_status()
 
     while True:
         exams = get_exam_status()
         try:
-            for exam in exams:
-                if len(exam["gradedDocuments"]) != 0:
-                    send_to_telegram("Tentan är rättad!")
-                    send_to_telegram("Tentan är rättad!")
-                    send_to_telegram("Tentan är rättad!")
-                    exit(1)
+            if exams != original_exams_arr:
+                send_to_telegram("Tentan är rättad!")
+                send_to_telegram("Tentan är rättad!")
+                send_to_telegram("Tentan är rättad!")
+                exit(1)
         except Exception as e:
             send_to_telegram(f"Error: {e}")
             print(e)
